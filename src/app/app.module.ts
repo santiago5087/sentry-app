@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
+import { EmpsFormComponent } from './components/emps-form/emps-form.component';
 
 
 
@@ -21,7 +22,8 @@ import { MatSortModule } from '@angular/material/sort';
   declarations: [
     AppComponent,
     NavigationComponent,
-    EmpsComponent
+    EmpsComponent,
+    EmpsFormComponent
   ],
   imports: [
     BrowserModule,
