@@ -1,1 +1,99 @@
-<p>emps-form works!</p>
+<div class="container">
+  <h1>{{ title }}</h1>
+
+  <form [formGroup]="employeeForm" 
+        (ngSubmit)="sendEmployeeForm()"
+        #empForm="ngForm"
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center">
+
+  <div fxFlex="45" class="form-p1">
+
+    <div fxLayoutAlign="space-between center" 
+         class="field-group">
+      <mat-label class="form-label">Cédula</mat-label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ingresa tu cédula</mat-label>
+        <input matInput formControlName="cedula" type="number" required>
+      </mat-form-field>
+    </div>
+
+    <div fxLayoutAlign="space-between center" 
+         class="field-group">
+      <mat-label class="form-label">Nombres</mat-label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ingresa tu nombre</mat-label>
+        <input matInput formControlName="nombres" type="string" required>
+      </mat-form-field>
+    </div>
+
+    <div fxLayoutAlign="space-between center" 
+         class="field-group">
+      <mat-label class="form-label">Apellidos</mat-label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ingresa tu apellido</mat-label>
+        <input matInput formControlName="apellidos" type="string" required>
+      </mat-form-field>
+    </div>
+
+    <div fxLayoutAlign="space-between center" 
+         class="field-group">
+      <mat-label class="form-label">Telefono</mat-label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ingresa tu telefono</mat-label>
+        <input matInput formControlName="telefono" type="number" required>
+      </mat-form-field>
+    </div>
+
+
+  </div>
+    
+  <div fxFlex="45" class="form-p2">
+    
+    <div fxLayoutAlign="space-between center" 
+         class="field-group">
+      <mat-label class="form-label">Celular</mat-label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ingresa tu celular</mat-label>
+        <input matInput formControlName="celular" type="number" required>
+      </mat-form-field>
+    </div>
+
+    <div fxLayoutAlign="space-between center" 
+         class="field-group">
+      <mat-label class="form-label">Email</mat-label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ingresa tu email</mat-label>
+        <input matInput formControlName="email" type="email" required>
+      </mat-form-field>
+    </div>
+
+    <div fxLayoutAlign="space-between center" 
+         class="field-group">
+      <mat-label class="form-label">Dirección</mat-label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ingresa tu direccion</mat-label>
+        <input matInput formControlName="direccion" type="string" required>
+      </mat-form-field>
+    </div>
+    
+  </div>
+  
+  <div class="buttons-group">
+    <button mat-flat-button 
+            (click)="back()"
+            class="backButton"
+            type="button">
+      <i class="fas fa-angle-left"></i>
+      Atrás
+    </button>
+    <button mat-flat-button 
+            color="primary" 
+            [disabled]="empForm.invalid" 
+            type="submit">
+      Guardar
+    </button>
+  </div>
+
+  </form>
+</div>

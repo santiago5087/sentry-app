@@ -17,7 +17,7 @@ export class EmpsFormComponent implements OnInit {
   editEmp: boolean = false;
   createEmp: boolean = true;
   title: string = '';
-  idEmp: string = '';
+  ccEmp: number = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
@@ -43,13 +43,18 @@ export class EmpsFormComponent implements OnInit {
   }
 
   configureForm(): void {
+    this.editEmp = true;
+    this.createEmp = false;
     const params = this.activatedRoute.snapshot.params;
     console.log(params);
     
-    if(params['id']) {
-      this.idEmp = params['id'];
+    if(params['cc']) {
+      this.ccEmp = params['cc'] as number;
+      console.log(this.ccEmp)
 
-      let myEmp: Empleado =  this.empService.getEmployee(this.idEmp);
+      let myEmp: Empleado =  this.empService.getEmployee(this.ccEmp);
+      console.log('EMP', myEmp)
+
       this.employeeForm.setValue({
         ...myEmp
       });
@@ -59,6 +64,7 @@ export class EmpsFormComponent implements OnInit {
      } else {
       this.title = 'Nuevo empleado';
       this.createEmp = true;
+      this.editEmp = false;
     }
   }
 

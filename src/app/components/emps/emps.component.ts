@@ -36,15 +36,17 @@ export class EmpsComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitCreate(): void {
-    this.router.navigate(['employees']);
+    this.router.navigate(['emps']);
+    
   }
 
-  onSubmitUpdate(id: string): void {
-    console.log("Update: " + id);
+  onSubmitUpdate(cc: string): void {
+    this.router.navigate(['emps', {cc}]);
   }
 
-  onSubmitDelete(id: string): void {
-    console.log("Delete: " + id);
+  onSubmitDelete(cc: number): void {
+    this.empService.deleteEmployee(cc);
+    this.loadEmployeesData();
   }
 
   // Función que filtra los datos por medio del valor ingresado por el usuario
