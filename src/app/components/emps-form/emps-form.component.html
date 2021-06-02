@@ -9,7 +9,8 @@
 
   <div fxFlex="45" class="form-p1">
 
-    <div fxLayoutAlign="space-between center" 
+    <div *ngIf="this.createEmp"
+         fxLayoutAlign="space-between center" 
          class="field-group">
       <mat-label class="form-label">Cédula</mat-label>
       <mat-form-field appearance="outline" class="form-field">
