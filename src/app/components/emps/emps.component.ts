@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 
 import { Empleado } from '../../shared/empleado.model';
+import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
   selector: 'app-emps',
@@ -19,7 +20,8 @@ export class EmpsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ["nombres", "apellidos", "telefono", "celular", "email", "acciones"];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private empService: EmployeesService) { }
 
   ngOnInit(): void {
     this.loadEmployeesData();
@@ -30,9 +32,7 @@ export class EmpsComponent implements OnInit, AfterViewInit {
   }
 
   loadEmployeesData() {
-    this.employeesTable.data = [{id: '1', cedula: 1020485778, nombres: "Edhy Santiago", apellidos: "Marín", telefono: 4565087, celular: 3023298764, email: 'santiago5087@hotmail.com', direccion: 'Calle 50 #56A 129'},
-    {id: '2', cedula: 102047777, nombres: "Pedro", apellidos: "Pérez", telefono: 1234567, celular: 3006007788, email: 'pedro@gmail.com', direccion: 'Calle 10 av. 129'}
-    ];
+    this.employeesTable.data = this.empService.getEmployees();
   }
 
   onSubmitCreate(): void {

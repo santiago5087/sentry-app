@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Empleado } from '../../shared/empleado.model';
+import { EmployeesService } from '../../services/employees.service';
 
 @Component({
   selector: 'app-emps-form',
@@ -20,7 +21,9 @@ export class EmpsFormComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
-              private location: Location) { }
+              private location: Location,
+              private empService: EmployeesService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -45,34 +48,36 @@ export class EmpsFormComponent implements OnInit {
     
     if(params['id']) {
       this.idEmp = params['id'];
-      
-      this.empService.getEmployee(this.idEmp).subscribe(empData => {
-        let emp: Employee = empData.data() as Employee;
-        delete emp.id;
-        
-        // Establece los valores del formalurio con los del empleado
-        this.employeeForm.setValue({
-          ...emp,
-          birthDay: new Date(moment(emp.birthDay, 'DD/MM/YYYY').format('MM/DD/YYYY')),
-          hiringDate: new Date(moment(emp.hiringDate, 'DD/MM/YYYY').format('MM/DD/YYYY'))
-        });
 
-        if(params['edit'] === 'false') {
-          this.title = "Ver: " + emp.name;
-          this.viewEmp = true;
-          Object.keys(this.employeeForm.controls).forEach(key => {
-            this.employeeForm.get(key).disable();
-          });
-        }
-        else if(params['edit'] === 'true') {
-          this.title = "Editando: " + emp.name;
-          this.editEmp = true;
-        }
+      let myEmp: Empleado =  this.empService.getEmployee(this.idEmp);
+      this.employeeForm.setValue({
+        ...myEmp
       });
-    } else {
+
+      this.title = "Editando: " + myEmp.nombres + " " + myEmp.apellidos;
+
+     } else {
       this.title = 'Nuevo empleado';
       this.createEmp = true;
-    } 
+    }
+  }
+
+  sendEmployeeForm(): void {
+    let newEmp: Empleado = this.employeeForm.value;
+
+    if(this.editEmp) {
+      this.empService.updateEmployee(newEmp);
+    }
+
+    else if(this.createEmp) {
+      this.empService.createEmployee(newEmp);
+    }
+
+    this.router.navigateByUrl('/home');
+  }
+
+  back(): void {
+    this.location.back();
   }
 
 }
